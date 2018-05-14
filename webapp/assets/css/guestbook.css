@@ -1,0 +1,103 @@
+@CHARSET "UTF-8";
+@import "mysite.css";
+
+#guestbook			{ margin:20px auto;	width:540px; }
+
+#guestbook form, 
+#guestbook table	{ width:100% }
+
+#guestbook table,	
+#guestbook table td { border:1px solid #333 }
+#guestbook table td { padding:5px }
+
+#guestbook ul		{ width:100%; margin-top:20px }
+#guestbook ul li	{ width:100%; margin-top:10px }
+
+
+#guestbook.delete-form	{ height:200px }
+#guestbook.delete-form form {
+	width:300px;
+	padding:10px;
+	border:1px solid #666;
+	border-radius: 10px;
+	margin:50px auto;
+}
+#guestbook.delete-form a	{ display:block; margin:20px auto; width:110px }
+
+#guestbook.delete-message p	{ padding:100px; height:50px; text-align:center }
+
+#guestbook textarea#content	{ width: 100%; border:none; height: 100px; resize: none; outline: none; }
+
+
+* { -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box; }
+    
+#guestbook h1 { 
+	background: url("${pageContext.request.contextPath }/assets/images/guestbook.png") left 2px no-repeat;
+	padding-left: 40px;
+	background-size: 30px;	
+	
+}
+
+#add-form input, textarea {
+	display: block
+	
+}
+
+#add-form input {
+	margin-top: 5px;
+	width: 100%;
+	padding: 8px;
+}
+
+#add-form textarea {
+	margin-top: 10px;
+	width: 100%;
+	height: 100px;
+	padding: 8px;
+}
+
+#add-form input[type='submit'] {
+	width: 100%;
+}
+
+#list-guestbook {
+	border-top: 1px solid #999;
+	width: 100%;
+}
+
+#list-guestbook li strong {
+	padding-left:40px;
+	font-family: "맑은 고딕";
+	color: #999;
+}
+
+#list-guestbook li p {
+	padding-top:10px;
+	padding-left: 50px;
+	font-family: "맑은 고딕";
+	color: #333;
+}
+
+#list-guestbook li {
+	position:relative;
+	background: url("${pageContext.request.contextPath }/assets/images/user.png") left 15px no-repeat;
+}
+
+#guestbook ul li a {
+	width:30px;
+	height:30px;
+	font-size:0%;
+	position:absolute;
+	background: url("${pageContext.request.contextPath }/assets/images/delete.png") left no-repeat;
+	left:20px;
+	top:30px;
+}
+
+input[type=submit] {
+	-webkit-appearance:none;
+	background-color: #fff;
+}

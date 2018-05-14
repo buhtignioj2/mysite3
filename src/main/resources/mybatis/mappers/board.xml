@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<select id="getList" parameterType="map" resultType="boardvo">
+		<choose>
+			<when test="keyword != null and keyword !=''">
+				<![CDATA[
+					  
+			select *  from ( select no, title, hit, regDate, depth, name as userName, user_no as userNo
+							 from(  select a.no, a.title, a.hit, DATE_FORMAT( reg_date, '%Y/%m/%d %h:%i:%s') as regDate, a.depth, b.name, a.user_no 
+			 	    				  from board a, users b 
+			 	    				 where a.user_no = b.no and (title like '%${keyword }%' or content like '%${keyword }%') 
+			 	     				order by group_no desc, order_no asc limit #{startPage}, #{size})t)tt
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				  select b.no, b.title, b.hit, DATE_FORMAT( b.reg_date, '%Y/%m/%d %h:%i:%s') as regDate, b.depth, u.name as userName, b.user_no as userNo
+					from board b , users u
+				   where u.`no` = b.user_no
+				order by group_no desc, order_no asc
+				limit #{startPage}, #{size}
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="getView" parameterType="map" resultType="boardvo">
+		<![CDATA[
+		select no, title, content, group_no, order_no, depth, user_no from board where no = #{no}
+		]]>
+	</select>
+
+	<update id="updateHit" parameterType="long">
+		<![CDATA[
+		update board set hit = hit + 1 where no = #{no}
+		]]>
+	</update>
+	
+	<insert id="insert" parameterType="guestbookvo">
+		<choose>
+			<when test="groupNo == null">
+				<![CDATA[
+				insert into board(no, title, content, group_no, order_no, depth, hit, reg_date, user_name, user_no)
+				select null, #{title}, #{content},  ifnull(max(group_no)+1, 1), 0, 0, 0, now(), #{userName}, #{userNo} " + " from board
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				insert into board values( null, #{title}, #{contente}, #{groupNo}, #{orderNo}, #{depth}, 0, now(), #{userName}, #{userNo} )	
+				]]>	
+			</otherwise>
+		</choose>
+						
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+	
+	<delete id="delete" parameterType="boardvo">
+		<![CDATA[
+		delete from board where no = #{no}
+		]]>
+	</delete>
+	
+</mapper>
