@@ -143,7 +143,13 @@
 			<build>
 				<resources>
 					<resource>
-						<directory>${project.basedir}/src/main/resources</directory>
+						<directory>${project.basedir}/src/main/resources/production</directory>
+						<excludes>
+							<exclude>**/*.java</exclude>
+						</excludes>
+					</resource>
+					<resource>
+						<directory>${project.basedir}/src/production/resources</directory>
 						<excludes>
 							<exclude>**/*.java</exclude>
 						</excludes>
@@ -174,6 +180,30 @@
 					<scope>provided</scope>
 				</dependency>
 			</dependencies>
+		</profile>
+		
+		<profile>
+			<id>development</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>${project.basedir}/src/main/resources/development</directory>
+						<excludes>
+							<exclude>**/*.java</exclude>
+						</excludes>
+					</resource>
+				</resources>
+				
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<configuration>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 
