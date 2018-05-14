@@ -181,11 +181,17 @@
 				</dependency>
 			</dependencies>
 		</profile>
-		
+
 		<profile>
 			<id>development</id>
 			<build>
 				<resources>
+					<resource>
+						<directory>${project.basedir}/src/main/resources</directory>
+						<excludes>
+							<exclude>**/*.java</exclude>
+						</excludes>
+					</resource>
 					<resource>
 						<directory>${project.basedir}/src/main/resources/development</directory>
 						<excludes>
@@ -193,7 +199,7 @@
 						</excludes>
 					</resource>
 				</resources>
-				
+
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
